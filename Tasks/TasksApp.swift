@@ -1,10 +1,3 @@
-//
-//  TasksApp.swift
-//  Tasks
-//
-//  Created by Brad Meyn on 15/5/2023.
-//
-
 import SwiftUI
 
 @main
@@ -13,8 +6,15 @@ struct TasksApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            let managedObjectContext = persistenceController.container.viewContext
+            let taskController = TaskController(context: managedObjectContext)
+         
+            NavigationView {
+                ListView(taskController: taskController)
+                    .environment(\.managedObjectContext, managedObjectContext)
+            }
         }
     }
 }
+
+
